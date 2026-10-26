@@ -152,4 +152,7 @@ function diffPlans(oldPlan, newPlan) {
   return { droppedCount: dropped.length, droppedKeys: dropped, movedCount: moved.length };
 }
 
-if (typeof module !== 'undefined') module.exports = { scoreChapter, orderChapters, buildPlan, diffPlans, daysBetween, slotsNeeded };
+/* Shared namespace: app.js reads RR.* in the browser; tests import via module.exports. */
+const RR = { scoreChapter, orderChapters, buildPlan, diffPlans, daysBetween, slotsNeeded, addDaysISO: addDays };
+
+if (typeof module !== 'undefined') module.exports = RR;
