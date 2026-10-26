@@ -38,3 +38,13 @@ plan.js           pure backwards scheduler + re-plan diff
 test/plan.test.js scheduler tests
 devpost/          scope.md, prd.md, spec.md, checklist.md, app-map.html
 ```
+
+## Demo video
+
+Watch the demo: https://vimeo.com/1239352335
+
+## Screenshots
+
+![Setup](docs/screenshot-setup.png)
+![Today](docs/screenshot-today.png)
+![Re-cut with panic flag](docs/screenshot-recut.png)
