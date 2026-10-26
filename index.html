@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revision Radar — plan backwards, panic less</title>
+<meta name="description" content="Turn a syllabus and an exam date into a day-by-day revision plan that re-cuts itself when you slip.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">RR</span> Revision Radar</div>
+  <nav class="tabs" id="tabs">
+    <button data-view="setup" class="tab active">Setup</button>
+    <button data-view="plan" class="tab" id="tabPlan" disabled>Plan</button>
+    <button data-view="today" class="tab" id="tabToday" disabled>Today</button>
+  </nav>
+  <div class="countdown" id="countdown" title="Time until exam">--</div>
+</header>
+
+<main>
+  <!-- SETUP -->
+  <section id="view-setup" class="view active">
+    <div class="hero">
+      <h1>Plan <span class="hl">backwards</span>.<br>Panic less.</h1>
+      <p class="sub">Your syllabus, your exam date, and one plan that re-cuts itself when you slip.</p>
+    </div>
+    <div class="panel">
+      <div class="field-row">
+        <div class="field grow">
+          <label for="examDate">Exam date</label>
+          <input type="date" id="examDate">
+          <div class="err" id="dateErr"></div>
+        </div>
+        <div class="field meter-box">
+          <span class="meter-label">days needed / left</span>
+          <span class="meter" id="meter">0 / 0</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="add-row" id="addRow">
+        <input type="text" id="chName" placeholder="Chapter name e.g. Thermodynamics — Unit 3">
+        <input type="text" id="chSubject" placeholder="Subject">
+        <select id="chWeight">
+          <option value="heavy">Heavy weight</option>
+          <option value="normal" selected>Normal</option>
+          <option value="light">Light</option>
+        </select>
+        <select id="chConf">
+          <option value="weak" selected>Weak</option>
+          <option value="okay">Okay</option>
+          <option value="strong">Strong</option>
+        </select>
+        <button id="addBtn" class="btn">Add chapter</button>
+      </div>
+      <div class="err" id="chErr"></div>
+      <div id="chList" class="ch-list"></div>
+      <div class="empty" id="chEmpty">No chapters yet. Add what you have to cover — the plan builds itself after.</div>
+    </div>
+    <div class="action-bar">
+      <button id="buildBtn" class="btn primary" disabled>Build my plan</button>
+      <div class="hint" id="buildHint">Set an exam date and add at least one chapter.</div>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="view-plan" class="view">
+    <div class="plan-head">
+      <div>
+        <h2 id="examLine">Exam in -- days</h2>
+        <div class="meter-line">days needed <b id="meter2">0/0</b> <span id="panicFlag" class="panic hidden">PANIC</span></div>
+      </div>
+      <div class="plan-actions">
+        <button id="replanBtn" class="btn">Re-plan</button>
+        <button id="slipBtn" class="btn warn">I slipped a day</button>
+        <button id="backBtn" class="btn ghost">Edit syllabus</button>
+      </div>
+    </div>
+    <div class="banner hidden" id="cutBanner"></div>
+    <div class="progress-strip"><div class="progress" id="progress"></div></div>
+    <div class="day-rail" id="dayRail"></div>
+  </section>
+
+  <!-- TODAY -->
+  <section id="view-today" class="view">
+    <div class="today-card" id="todayCard"></div>
+    <div class="today-links"><a href="#" data-goto="plan">See the whole plan</a> · <a href="#" data-goto="setup">Edit syllabus</a></div>
+  </section>
+</main>
+
+<footer class="foot">Built plan-first with the Devpost Learn Skill Pack — scope.md, prd.md and spec.md live in the repo.</footer>
+<script src="plan.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
