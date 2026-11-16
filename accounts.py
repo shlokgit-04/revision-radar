@@ -144,17 +144,33 @@ class RRStore:
         return out
 
     def save_state(self, uid: int, state: dict) -> bool:
-        """Merge only known keys; each field is sanitized by the caller."""
+        """Merge the sanitized keys into the stored workspace.
+
+        The API accepts partial saves (e.g. a single tick), so a save must
+        never drop the keys the caller did not send.
+        """
         clean = {}
-        for key, default in self.DEFAULT_STATE.items():
+        for key in self.DEFAULT_STATE:
             if key in state:
                 clean[key] = state[key]
         with self._lock:
+            row = self.db.execute(
+                "SELECT state FROM workspaces WHERE user_id = ?", (uid,)
+            ).fetchone()
+            merged = {}
+            if row:
+                try:
+                    merged = json.loads(row[0]) or {}
+                except Exception:
+                    merged = {}
+            if not isinstance(merged, dict):
+                merged = {}
+            merged.update(clean)
             now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             self.db.execute(
                 "INSERT INTO workspaces (user_id, state, updated_at) VALUES (?, ?, ?)"
                 " ON CONFLICT(user_id) DO UPDATE SET state = ?, updated_at = ?",
-                (uid, json.dumps(clean), now, json.dumps(clean), now),
+                (uid, json.dumps(merged), now, json.dumps(merged), now),
             )
             self.db.commit()
         return True

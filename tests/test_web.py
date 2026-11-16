@@ -95,3 +95,19 @@ def test_pages_and_health(client):
     assert client.get("/register").status_code == 200
     assert client.get("/privacy").status_code == 200
     assert client.get("/about").status_code == 200
+
+
+def test_partial_save_keeps_other_fields(client):
+    """A save carrying only one key must not wipe the rest of the workspace."""
+    tok = _register(client, "partial@splitkey.test")
+    h = _auth(tok)
+    full = {"examDate": "2026-12-20",
+            "chapters": [{"id": "c1", "name": "OSI", "weight": "heavy",
+                          "confidence": "weak"}]}
+    assert client.put("/api/state", headers=h, json=full).status_code == 200
+    assert client.put("/api/state", headers=h,
+                      json={"ticks": {"2026-12-01_c1_first": True}}).status_code == 200
+    got = client.get("/api/state", headers=h).get_json()
+    assert got["examDate"] == "2026-12-20"
+    assert got["chapters"][0]["id"] == "c1"
+    assert got["ticks"] == {"2026-12-01_c1_first": True}
