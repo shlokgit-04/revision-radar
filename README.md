@@ -13,7 +13,15 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-No build step, no dependencies, no backend. Your syllabus, plan and ticks are stored in the browser's localStorage.
+The planner is now a full-stack app: real accounts (email + password), and your syllabus, plan, ticks and slipped days are stored server-side per user, not in localStorage. Open the deployed site and sign in, or run it locally:
+
+```bash
+pip install -r requirements.txt
+REVISION_RADAR_SECRET_KEY=$(python3 -c "import secrets;print(secrets.token_urlsafe(48))") python3 app.py
+# then open http://localhost:8000
+```
+
+Web tests: `python3 -m pytest tests/ -q` (auth, per-user isolation, server-side state validation, export, delete account, security headers, pages).
 
 ## How it works
 

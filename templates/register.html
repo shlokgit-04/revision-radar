@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Create account — Revision Radar{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="brand-row"><span class="brand-mark">RR</span> Revision Radar</div>
+  <div class="auth-card">
+    <h1>Create your account</h1>
+    <p class="auth-sub">Plan backwards from exam day — your syllabus stays saved.</p>
+    <form id="registerForm" novalidate>
+      <label for="email">Email</label>
+      <input type="email" id="email" autocomplete="email" required>
+      <label for="password">Password (8+ characters)</label>
+      <input type="password" id="password" autocomplete="new-password" minlength="8" required>
+      <div class="err" id="authErr"></div>
+      <button type="submit" class="btn primary">Create account</button>
+    </form>
+    <p class="auth-alt">Already have an account? <a href="/login">Sign in</a></p>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='login.js') }}"></script>{% endblock %}

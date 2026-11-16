@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Revision Radar{% endblock %}</title>
+<meta name="description" content="Turn a syllabus and an exam date into a day-by-day revision plan that re-cuts itself when you slip.">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+{% block content %}{% endblock %}
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

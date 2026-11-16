@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}About — Revision Radar{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <div class="brand-row"><span class="brand-mark">RR</span> Revision Radar</div>
+  <h1>About</h1>
+  <p>Revision Radar is a backwards exam-revision planner. Add your syllabus chapters with a weight and a confidence, set the exam date, and the app lays out a day-by-day revision plan counting backwards from the exam. Slip a day, and one re-plan click re-sequences everything that is left and tells you exactly what got dropped.</p>
+  <p>The scheduler is a pure, deterministic function that was written and unit-tested before the UI was built — first passes first, revision passes nearest the exam, the eve as a rest day, and tiered compression that says exactly which passes were cut when the window is too tight.</p>
+  <p>It was built for the Build With AI: Basics hackathon, plan-first with the Devpost Learn Skill Pack: the scope, PRD, spec and build checklist live in the repo's <code>devpost/</code> folder, written and approved before any code.</p>
+  <div class="credit-card">
+    <p class="credit-line">Made by Shlok V.</p>
+    <p class="credit-sub">Portfolio: <a href="https://shlok.is-a.dev" rel="noopener">shlok.is-a.dev</a></p>
+  </div>
+</div>
+{% endblock %}
